@@ -64,4 +64,19 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
+  def same_director
+    movie_director = Movie.select(:director).where(
+            'director != :directors_name AND title = :movie_title',
+                { 
+                  directors_name: '',
+                  movie_title: params[:title] 
+                }
+          ).first
+    @movies = Movie.find_all_by_director movie_director.director unless movie_director == nil
+    if @movies == nil or @movies.empty?
+      flash[:notice] = "'#{params[:title]}' has no director info"
+      redirect_to movies_path
+    end
+  end
+
 end
