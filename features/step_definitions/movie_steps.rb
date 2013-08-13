@@ -17,9 +17,9 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   all_movies ||= page.all 'table#movies tbody tr'
   movie_names ||= []
   all_movies.each do |movie_row|
-    if movie_row.has_text? e1
+    if movie_row.has_content? e1
       movie_names << e1
-    elsif movie_row.has_text? e2
+    elsif movie_row.has_content? e2
       movie_names << e2
     end
   end
